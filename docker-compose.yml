@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: backend-app
+    ports:
+      - "8000:8000" # меняем порт на хосте, чтобы не конфликтовал с фронтом
+    environment:
+      - NODE_ENV=production
+      # Добавьте другие переменные окружения
+      # - DATABASE_URL=postgresql://...
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./lib # путь к папке с фронтендом
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000 # Пробрасываем как build arg
+    container_name: frontend-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

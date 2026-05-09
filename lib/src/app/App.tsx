@@ -9,7 +9,8 @@ const App = () => {
   useEffect(() => {
     ;(async () =>
       setSidebar(
-        (await axios.get("http://localhost:8000/api/sidebar")).data.sidebar
+        (await axios.get(`${import.meta.env.VITE_API_URL}/api/sidebar`)).data
+          .sidebar
       ))()
   }, [setSidebar])
 
