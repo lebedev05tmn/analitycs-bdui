@@ -2,7 +2,15 @@ sidebar:
     - type: page
       id: metrics
       icon: layout-dashboard
-      content: dashboard
+      content:
+          - - type: chart
+              id: chart-1
+            - type: chart
+              id: chart-2
+          - - type: chart
+              id: chart-3
+            - type: chart
+              id: chart-4
     - type: folder
       id: group-1
       icon: forklift
@@ -13,17 +21,25 @@ sidebar:
             children:
                 - type: page
                   id: table-1
-                  content: table
+                  content:
+                      - - type: table
+                          id: table-content-1
                   icon: table
                 - type: page
                   id: form-1
-                  content: form
+                  content:
+                      - - type: form
+                          id: form-content-1
                   icon: form
                 - type: page
                   id: gantt-1
-                  content: gantt
+                  content:
+                      - - type: gantt
+                          id: gantt-content-1
                   icon: chart-gantt
           - type: page
             id: table-2
-            content: table
+            content:
+                - - type: table
+                    id: table-content-2
             icon: table

@@ -3,10 +3,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 
-const sidebarRouter: Controller = async (req, res) => {
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
+const sidebarController: Controller = async (req, res) => {
     try {
         const yamlPath = path.join(__dirname, '../resources/sidebar.yml');
         const yamlContent = await fs.readFile(yamlPath, 'utf8');
@@ -19,4 +16,4 @@ const sidebarRouter: Controller = async (req, res) => {
     }
 };
 
-export default sidebarRouter;
+export default sidebarController;

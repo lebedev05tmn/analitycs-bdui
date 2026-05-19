@@ -19,17 +19,22 @@ import { ChevronDown } from "lucide-react"
 import { useStore } from "@/app/store"
 import { Link } from "react-router"
 
+type SidebarContent = {
+  id: string
+  type: "chart" | "table" | "gantt" | "form"
+}
+
 export type SidebarPage = {
   id: string
   icon?: IconName
-  content: "dashboard" | "table" | "gantt" | "form"
+  content: SidebarContent[][]
   type: "page"
 }
 
 export type SidebarFolder = {
   id: string
   icon?: IconName
-  children: SidebarPage[]
+  children: SidebarType[]
   type: "folder"
 }
 
