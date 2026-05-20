@@ -56,6 +56,7 @@ const SidebarContentComponent = ({
   path: string
 }) => {
   const { icon, id } = data
+
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild>
