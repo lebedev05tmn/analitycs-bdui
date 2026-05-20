@@ -102,7 +102,6 @@ const SidebarFolderComponent = ({
 
 export function AppSidebar() {
   const sidebarContent = useStore((state) => state.sidebarContent)
-
   return (
     <Sidebar>
       <SidebarHeader>
