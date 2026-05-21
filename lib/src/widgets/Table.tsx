@@ -1,4 +1,4 @@
-import { getTable } from "@/api"
+import { getColumns, getRows } from "@/api"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,
@@ -31,7 +31,8 @@ const TableComponent: FC<TableProps> = ({ id }) => {
   useEffect(() => {
     const fetchTable = async () => {
       setLoading(true)
-      const { rows, columns } = await getTable(id)
+      const { data: rows } = await getRows()
+      const columns = await getColumns()
       setRows(rows)
       setColumns(columns)
       setLoading(false)

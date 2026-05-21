@@ -1,13 +1,15 @@
 import type { SidebarType } from "@/components/app-sidebar"
-import type { TableColumn, TableRow } from "@/widgets/Table"
+import type { TableRow } from "@/widgets/Table"
 
 type SidebarResponse = {
     sidebar: SidebarType[]
 }
 
-type TableResponse = {
-    columns: TableColumn[];
-    rows: TableRow[];
+type RowsResponse = {
+    data: TableRow[],
+    totalCount: number,
+    totalPages: number,
+    currentPage: number,
 }
 
-export type { SidebarResponse, TableResponse }
+export type { SidebarResponse, RowsResponse }

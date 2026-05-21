@@ -8,10 +8,11 @@
         "build": "npm run clean && tsc && tsc-alias && copyfiles -u 1 \"src/**/*.+(yml|yaml|json)\" dist",
         "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register src/app.ts\"",
         "preview": "node dist/app.js",
-        "start": "pnpm build && pnpm preview",
+        "start": "ts-node -r tsconfig-paths/register src/app.ts",
         "lint": "pnpm --silent eslint && pnpm --silent stylelint",
         "lint:fix": "pnpm --silent eslint:fix && pnpm --silent stylelint:fix",
-        "lint:strict": "pnpm --silent eslint:strict && pnpm --silent stylelint:strict"
+        "lint:strict": "pnpm --silent eslint:strict && pnpm --silent stylelint:strict",
+        "typeorm": "typeorm-ts-node-commonjs"
     },
     "keywords": [],
     "author": "",
@@ -19,7 +20,10 @@
     "dependencies": {
         "cors": "^2.8.6",
         "express": "^5.1.0",
-        "js-yaml": "^4.1.1"
+        "js-yaml": "^4.1.1",
+        "pg": "^8.21.0",
+        "reflect-metadata": "^0.2.2",
+        "typeorm": "1.0.0"
     },
     "devDependencies": {
         "@types/cors": "^2.8.19",

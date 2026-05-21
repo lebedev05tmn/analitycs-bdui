@@ -1,10 +1,16 @@
 import express from 'express';
 import cors from 'cors';
 import sidebarController from './controllers/resourcesController';
-import tableController from './controllers/tableController';
+import rowsController from './controllers/rowsController';
+import { AppDataSource } from './data-source';
+import columnsController from './controllers/columnsController';
+
+import 'reflect-metadata';
 
 const app = express();
 const port = process.env.PORT || 8000;
+
+AppDataSource.initialize();
 
 app.use(
     cors({
@@ -15,6 +21,7 @@ app.use(
 app.use(express.json());
 
 app.get('/api/sidebar', sidebarController);
-app.get('/api/getTable', tableController);
+app.get('/api/getRows', rowsController);
+app.get('/api/getColumns', columnsController);
 
 app.listen(port);
