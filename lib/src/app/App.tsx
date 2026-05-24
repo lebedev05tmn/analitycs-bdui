@@ -1,11 +1,11 @@
 import { useEffect } from "react"
-import { useStore } from "./store"
+import { useAppStore } from "./store"
 import { Router } from "./router"
 import { getSidebar } from "@/api"
 
 const App = () => {
-  const setSidebar = useStore((state) => state.setSidebar)
-  const sidebar = useStore((state) => state.sidebarContent)
+  const setSidebar = useAppStore((state) => state.setSidebar)
+  const sidebar = useAppStore((state) => state.sidebarContent)
 
   useEffect(() => {
     const fetchSidebar = async () => {

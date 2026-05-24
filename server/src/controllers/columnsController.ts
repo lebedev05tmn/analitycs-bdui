@@ -1,11 +1,18 @@
 import { Controller, HTTP_STATUSES } from '@/shared/types';
-import { AppDataSource } from '@/data-source';
-import { BankTransactions } from '@/entities/BankTransactions';
+import { findTableMetadata } from '@/repositories/tableRepository';
 
 const columnsController: Controller = async (req, res) => {
     try {
-        const entityMetadata = AppDataSource.getMetadata(BankTransactions);
-        const columns = entityMetadata.columns.map((column) => ({
+        const entityMetadata = findTableMetadata(req)
+        
+       if (!entityMetadata) {
+            res.status(HTTP_STATUSES.NOT_FOUND_404).json({
+                error: 'Table not found'
+            });
+            return;
+        }
+
+        const columns = entityMetadata.columns.filter(col => col.propertyName !== 'id').map((column) => ({
             header: column.propertyName,
             type: column.type,
         }));

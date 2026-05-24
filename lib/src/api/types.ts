@@ -1,15 +1,20 @@
 import type { SidebarType } from "@/components/app-sidebar"
-import type { TableRow } from "@/widgets/Table"
+import type { TableRowType } from "@/widgets/Table/types"
 
 type SidebarResponse = {
-    sidebar: SidebarType[]
+  sidebar: SidebarType[]
 }
 
 type RowsResponse = {
-    data: TableRow[],
-    totalCount: number,
-    totalPages: number,
-    currentPage: number,
+  data: TableRowType[]
+  totalCount: number
+  totalPages: number
 }
 
-export type { SidebarResponse, RowsResponse }
+type RowsRequest = {
+  id: string
+  offset: number
+  limit: number
+}
+
+export type { SidebarResponse, RowsResponse, RowsRequest }

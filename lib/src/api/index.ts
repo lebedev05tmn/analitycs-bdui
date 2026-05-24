@@ -1,23 +1,26 @@
-import axios from 'axios';
-import type { SidebarResponse, RowsResponse } from './types';
-import type { TableColumn } from '@/widgets/Table';
+import axios from "axios"
+import type { SidebarResponse, RowsResponse, RowsRequest } from "./types"
+import type { TableColumnType } from "@/widgets/Table/types"
 
-export const get = async <T = unknown,>(path: string, params?: unknown): Promise<T> => {
-  const { data } = await axios.get(path, { params });
+export const get = async <T = unknown>(
+  path: string,
+  params?: unknown
+): Promise<T> => {
+  const { data } = await axios.get(path, { params })
 
-  return data;
-};
+  return data
+}
 
 export const getSidebar = async () => {
-    const { sidebar } = await get<SidebarResponse>("/api/sidebar");
+  const { sidebar } = await get<SidebarResponse>("/api/resources/sidebar")
 
-    return sidebar
+  return sidebar
 }
 
-export const getRows = async () => {
-  return await get<RowsResponse>('/api/getRows', { offset: 100, limit: 100 })
+export const getRows = (request: RowsRequest) => {
+  return get<RowsResponse>("/api/getRows", request)
 }
 
-export const getColumns = async () => {
-  return await get<TableColumn[]>('/api/getColumns')
+export const getColumns = (id: string) => {
+  return get<TableColumnType[]>("/api/getColumns", { id })
 }

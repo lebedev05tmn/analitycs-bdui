@@ -16,10 +16,10 @@ import {
   CollapsibleTrigger,
 } from "./ui/collapsible"
 import { ChevronDown } from "lucide-react"
-import { useStore } from "@/app/store"
+import { useAppStore } from "@/app/store"
 import { Link } from "react-router"
 
-type SidebarContent = {
+export type SidebarContent = {
   id: string
   type: "chart" | "table" | "gantt" | "form"
 }
@@ -101,7 +101,7 @@ const SidebarFolderComponent = ({
 }
 
 export function AppSidebar() {
-  const sidebarContent = useStore((state) => state.sidebarContent)
+  const sidebarContent = useAppStore((state) => state.sidebarContent)
   return (
     <Sidebar>
       <SidebarHeader>

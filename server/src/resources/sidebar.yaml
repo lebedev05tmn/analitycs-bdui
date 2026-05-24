@@ -20,10 +20,10 @@ sidebar:
             icon: ambulance
             children:
                 - type: page
-                  id: table-1
+                  id: table-layout-1
                   content:
                       - - type: table
-                          id: table-content-1
+                          id: bankTransactions
                   icon: table
                 - type: page
                   id: form-1
@@ -38,7 +38,7 @@ sidebar:
                           id: gantt-content-1
                   icon: chart-gantt
           - type: page
-            id: table-2
+            id: table-layout-2
             content:
                 - - type: table
                     id: table-content-2

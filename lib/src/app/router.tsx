@@ -4,7 +4,7 @@ import {
   type RouteObject,
 } from "react-router"
 import Layout from "./layout"
-import { useStore } from "./store"
+import { useAppStore } from "./store"
 import type { SidebarPage, SidebarType } from "@/components/app-sidebar"
 import { Spinner } from "@/components/ui/spinner"
 
@@ -71,11 +71,17 @@ const generateNestedRoutes = (
         path: `${basePath}/${item.id}`,
         element: (
           <Layout>
-            <div className="flex h-full flex-col gap-6 pt-15 pr-5 pb-10 pl-5">
+            <div className="flex h-full w-full flex-col gap-6 pt-15 pr-5 pb-10 pl-5">
               {item.content.map((block, index) => (
-                <div className="flex h-full gap-6" key={`block-${index}`}>
+                <div
+                  className="grid h-full w-full min-w-0 grid-flow-col gap-6 overflow-x-auto"
+                  key={`block-${index}`}
+                >
                   {block.map((item) => (
-                    <Card className="h-full w-full" key={item.id}>
+                    <Card
+                      className="flex h-auto w-auto flex-col justify-between gap-0 py-0"
+                      key={item.id}
+                    >
                       {getPageComponent(item)}
                     </Card>
                   ))}
@@ -87,7 +93,6 @@ const generateNestedRoutes = (
         handle: { sidebarItem: item },
       })
     } else if (item.type === "folder") {
-      // Добавляем базовый путь для папки
       const folderPath = `${basePath}/${item.id}`
 
       routes.push({
@@ -101,7 +106,7 @@ const generateNestedRoutes = (
 }
 
 export const Router = () => {
-  const sidebarContent = useStore((state) => state.sidebarContent)
+  const sidebarContent = useAppStore((state) => state.sidebarContent)
 
   const router = createBrowserRouter([
     {

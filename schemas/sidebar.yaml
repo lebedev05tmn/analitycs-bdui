@@ -1,0 +1,89 @@
+
+$schema: "https://json-schema.org/draft-07/schema"
+$id: "https://example.com/sidebar-response.schema.json"
+title: "SidebarResponse"
+description: "Schema for sidebar response structure"
+type: "object"
+required:
+  - sidebar
+properties:
+  sidebar:
+    type: "array"
+    description: "Array of sidebar items (pages or folders)"
+    items:
+      $ref: "#/definitions/SidebarType"
+
+definitions:
+  SidebarContent:
+    type: "object"
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: "string"
+        description: "Unique identifier for the content"
+      type:
+        type: "string"
+        enum:
+          - "chart"
+          - "table"
+          - "gantt"
+          - "form"
+        description: "Type of the content block"
+  
+  SidebarPage:
+    type: "object"
+    required:
+      - id
+      - content
+      - type
+    properties:
+      id:
+        type: "string"
+        description: "Unique identifier for the page"
+      icon:
+        $ref: "#/definitions/IconName"
+      content:
+        type: "array"
+        description: "2D array of content blocks"
+        items:
+          type: "array"
+          items:
+            $ref: "#/definitions/SidebarContent"
+      type:
+        type: "string"
+        const: "page"
+        description: "Type discriminator for page"
+  
+  SidebarFolder:
+    type: "object"
+    required:
+      - id
+      - children
+      - type
+    properties:
+      id:
+        type: "string"
+        description: "Unique identifier for the folder"
+      icon:
+        $ref: "#/definitions/IconName"
+      children:
+        type: "array"
+        description: "Array of child sidebar items (pages or folders)"
+        items:
+          $ref: "#/definitions/SidebarType"
+      type:
+        type: "string"
+        const: "folder"
+        description: "Type discriminator for folder"
+  
+  SidebarType:
+    description: "Union type - can be either a page or a folder"
+    oneOf:
+      - $ref: "#/definitions/SidebarPage"
+      - $ref: "#/definitions/SidebarFolder"
+  
+  IconName:
+    description: "Name of the icon (https://lucide.dev/icons)"
+    type: "string"

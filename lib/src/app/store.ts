@@ -1,12 +1,12 @@
 import type { SidebarType } from "@/components/app-sidebar"
 import { create } from "zustand"
 
-interface Store {
+interface AppStore {
   sidebarContent: SidebarType[]
   setSidebar: (sidebar: SidebarType[]) => void
 }
 
-export const useStore = create<Store>((set) => ({
+export const useAppStore = create<AppStore>((set) => ({
   sidebarContent: [],
   setSidebar: (sidebar) =>
     set((state) => ({

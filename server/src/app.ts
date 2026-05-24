@@ -1,9 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import sidebarController from './controllers/resourcesController';
 import rowsController from './controllers/rowsController';
 import { AppDataSource } from './data-source';
 import columnsController from './controllers/columnsController';
+import resourcesController from './controllers/resourcesController';
+
 
 import 'reflect-metadata';
 
@@ -20,7 +21,7 @@ app.use(
 
 app.use(express.json());
 
-app.get('/api/sidebar', sidebarController);
+app.get('/api/resources/:filename', resourcesController);
 app.get('/api/getRows', rowsController);
 app.get('/api/getColumns', columnsController);
 
