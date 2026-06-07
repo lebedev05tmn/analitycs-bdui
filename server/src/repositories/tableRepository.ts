@@ -8,7 +8,7 @@ export const tableEntities = {
 };
 
 export const findTableRepository = (req: Request) => {
-    const id = req.query.id as keyof typeof tableEntities;
+    const id = req.body.id as keyof typeof tableEntities;
 
     if (!(id in tableEntities)) {
         return undefined;

@@ -22,7 +22,7 @@ app.use(
 app.use(express.json());
 
 app.get('/api/resources/:filename', resourcesController);
-app.get('/api/getRows', rowsController);
+app.post('/api/getRows', rowsController);
 app.get('/api/getColumns', columnsController);
 
 app.listen(port);

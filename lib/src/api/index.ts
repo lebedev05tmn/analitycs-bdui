@@ -11,6 +11,18 @@ export const get = async <T = unknown>(
   return data
 }
 
+export const post = async <T = unknown>(path: string, body: unknown): Promise<T> => {
+  const headers = {
+    "Content-Type": "application/json",
+  }
+
+  const { data } = await axios.post(path, body, {
+    headers,
+  })
+
+  return data
+}
+
 export const getSidebar = async () => {
   const { sidebar } = await get<SidebarResponse>("/api/resources/sidebar")
 
@@ -18,7 +30,7 @@ export const getSidebar = async () => {
 }
 
 export const getRows = (request: RowsRequest) => {
-  return get<RowsResponse>("/api/getRows", request)
+  return post<RowsResponse>("/api/getRows", request)
 }
 
 export const getColumns = (id: string) => {

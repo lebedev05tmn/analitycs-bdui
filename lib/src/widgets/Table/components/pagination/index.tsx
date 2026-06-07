@@ -17,17 +17,17 @@ type TablePaginationProps = {
 }
 
 const TablePagination: FC<TablePaginationProps> = ({ id }) => {
+  const { setCount, setPage, fetchData } = getTableActions(id)
+
   return (
     <div className="flex items-center justify-between gap-4 pt-3 pr-4 pb-3 pl-4">
       <Field orientation="horizontal" className="w-fit">
         <FieldLabel htmlFor="select-rows-per-page">Rows per page</FieldLabel>
         <Select
           onValueChange={(value) => {
-            const { setCount, setPage, fetchData } = getTableActions(id)
-
             setCount(Number(value))
             setPage(0)
-            fetchData(0, Number(value))
+            fetchData({ page: 0, count: Number(value) })
           }}
           defaultValue={String(DEFAULT_COUNT)}
         >

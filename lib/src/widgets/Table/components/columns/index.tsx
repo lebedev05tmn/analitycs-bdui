@@ -1,9 +1,10 @@
-import type { FC } from "react"
+import { type FC } from "react"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useTableSelector } from "../../store"
+import ColumnMenu from "./columnMenu"
 
 type ColumnsProps = {
   id: string
@@ -19,12 +20,14 @@ const Columns: FC<ColumnsProps> = ({ id }) => {
           ? columns.map((item) => (
               <TableHead
                 className="sticky top-0 bg-muted/80 py-3 pl-2 backdrop-blur"
-                key={item.header}
+                key={item.id}
               >
-                <Button className="flex items-center bg-transparent text-card-foreground hover:bg-accent-foreground hover:text-primary-foreground">
-                  <p>{item.header}</p>
-                  <ChevronDown />
-                </Button>
+                <ColumnMenu id={id} column={item.id}>
+                  <Button className="flex items-center bg-transparent text-card-foreground hover:bg-accent-foreground hover:text-primary-foreground">
+                    <p>{item.id}</p>
+                    <ChevronDown />
+                  </Button>
+                </ColumnMenu>
               </TableHead>
             ))
           : Array.from({ length: 5 }).map((_, index) => (

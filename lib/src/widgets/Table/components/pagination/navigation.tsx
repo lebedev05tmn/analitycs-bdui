@@ -22,14 +22,14 @@ const Previous: FC<Props> = ({ id }) => {
   const error = useTableSelector(id, (state) => state.error)
 
   const { fetchData } = getTableActions(id)
+  const { getPage } = getTableSelectors(id)
 
   return (
     <PaginationPrevious
       disabled={page === 0 || loading || !!error}
       onClick={() => {
-        const { getPage } = getTableSelectors(id)
         getTableActions(id).prevPage()
-        fetchData(getPage() - 1)
+        fetchData({ page: getPage() - 1 })
       }}
     />
   )
@@ -42,14 +42,14 @@ const Next: FC<Props> = ({ id }) => {
   const error = useTableSelector(id, (state) => state.error)
 
   const { fetchData } = getTableActions(id)
+  const { getPage } = getTableSelectors(id)
 
   return (
     <PaginationNext
       disabled={page + 1 === totalPages || loading || !!error}
       onClick={() => {
-        const { getPage } = getTableSelectors(id)
         getTableActions(id).nextPage()
-        fetchData(getPage() + 1)
+        fetchData({ page: getPage() + 1 })
       }}
     />
   )

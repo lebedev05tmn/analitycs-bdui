@@ -13,7 +13,7 @@ const columnsController: Controller = async (req, res) => {
         }
 
         const columns = entityMetadata.columns.filter(col => col.propertyName !== 'id').map((column) => ({
-            header: column.propertyName,
+            id: column.propertyName,
             type: column.type,
         }));
 

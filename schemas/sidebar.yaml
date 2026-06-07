@@ -1,6 +1,4 @@
-
 $schema: "https://json-schema.org/draft-07/schema"
-$id: "https://example.com/sidebar-response.schema.json"
 title: "SidebarResponse"
 description: "Schema for sidebar response structure"
 type: "object"

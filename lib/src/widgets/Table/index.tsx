@@ -20,7 +20,10 @@ const TableComponent: FC<TableProps> = ({ id }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
+  // навешать TableContext который будет прокидывать id вниз без props-drilling
+
   if (error) return <ErrorOverlay error={error} />
+
   return (
     <>
       <Table>

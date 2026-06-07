@@ -1,3 +1,4 @@
+$schema: "../../../schemas/sidebar.yaml"
 sidebar:
     - type: page
       id: metrics
