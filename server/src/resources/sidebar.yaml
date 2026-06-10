@@ -1,0 +1,46 @@
+$schema: "../../../schemas/sidebar.yaml"
+sidebar:
+    - type: page
+      id: metrics
+      icon: layout-dashboard
+      content:
+          - - type: chart
+              id: chart-1
+            - type: chart
+              id: chart-2
+          - - type: chart
+              id: chart-3
+            - type: chart
+              id: chart-4
+    - type: folder
+      id: group-1
+      icon: forklift
+      children:
+          - type: folder
+            id: group-2
+            icon: ambulance
+            children:
+                - type: page
+                  id: table-layout-1
+                  content:
+                      - - type: table
+                          id: bankTransactions
+                  icon: table
+                - type: page
+                  id: form-1
+                  content:
+                      - - type: form
+                          id: form-content-1
+                  icon: form
+                - type: page
+                  id: gantt-1
+                  content:
+                      - - type: gantt
+                          id: gantt-content-1
+                  icon: chart-gantt
+          - type: page
+            id: table-layout-2
+            content:
+                - - type: table
+                    id: table-content-2
+            icon: table

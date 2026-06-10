@@ -4,7 +4,7 @@ import {
   type RouteObject,
 } from "react-router"
 import Layout from "./layout"
-import { useStore } from "./store"
+import { useAppStore } from "./store"
 import type { SidebarPage, SidebarType } from "@/components/app-sidebar"
 import { Spinner } from "@/components/ui/spinner"
 
@@ -12,6 +12,7 @@ import { Bar, BarChart } from "recharts"
 
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
 import { Card } from "@/components/ui/card"
+import Table from "@/widgets/Table"
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -35,37 +36,20 @@ const chartConfig = {
 
 export function ChartExample() {
   return (
-    <Card>
-      <ChartContainer config={chartConfig} className="min-h-50 w-full">
-        <BarChart accessibilityLayer data={chartData}>
-          <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-        </BarChart>
-      </ChartContainer>
-    </Card>
+    <ChartContainer config={chartConfig} className="min-h-50 w-full">
+      <BarChart accessibilityLayer data={chartData}>
+        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+      </BarChart>
+    </ChartContainer>
   )
 }
 
-const getPageComponent = (content: SidebarPage["content"]) => {
-  switch (content) {
-    case "dashboard":
-      return (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            width: "100%",
-            gap: 50,
-            padding: 50,
-          }}
-        >
-          <ChartExample />
-          <ChartExample />
-          <ChartExample />
-          <ChartExample />
-        </div>
-      )
+const getPageComponent = (content: SidebarPage["content"][number][number]) => {
+  switch (content.type) {
+    case "chart":
+      return <ChartExample />
     case "table":
-      return "table"
+      return <Table id={content.id} />
     case "gantt":
       return "gantt"
     case "form":
@@ -85,11 +69,30 @@ const generateNestedRoutes = (
     if (item.type === "page") {
       routes.push({
         path: `${basePath}/${item.id}`,
-        element: <Layout>{getPageComponent(item.content)}</Layout>,
+        element: (
+          <Layout>
+            <div className="flex h-full w-full flex-col gap-6 pt-15 pr-5 pb-10 pl-5">
+              {item.content.map((block, index) => (
+                <div
+                  className="grid h-full w-full min-w-0 grid-flow-col gap-6 overflow-x-auto"
+                  key={`block-${index}`}
+                >
+                  {block.map((item) => (
+                    <Card
+                      className="flex h-auto w-auto flex-col justify-between gap-0 py-0"
+                      key={item.id}
+                    >
+                      {getPageComponent(item)}
+                    </Card>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </Layout>
+        ),
         handle: { sidebarItem: item },
       })
     } else if (item.type === "folder") {
-      // Добавляем базовый путь для папки
       const folderPath = `${basePath}/${item.id}`
 
       routes.push({
@@ -103,7 +106,7 @@ const generateNestedRoutes = (
 }
 
 export const Router = () => {
-  const sidebarContent = useStore((state) => state.sidebarContent)
+  const sidebarContent = useAppStore((state) => state.sidebarContent)
 
   const router = createBrowserRouter([
     {
